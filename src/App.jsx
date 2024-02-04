@@ -72,7 +72,7 @@ export default function App() {
     </div>
     
     {
-      Yes ? null: <div className="flex justify-evenly align-middle content-center self-center items-center gap-10 flex-wrap">
+      Yes ? null: <div className="flex justify-evenly align-middle content-center self-center items-center gap-10 flex-wrap p-10">
       <button
         style={{
           width: noCounter === 0 ? '120' : `${(noCounter * 10)+100}px`,
@@ -89,7 +89,7 @@ export default function App() {
       </button>
 
       <button
-        className="bg-red-400 h-14 !font-pop font-bold text-xl text-center align-middle items-center text-white px-10 py-4 rounded-md shadow-xl border-1"
+        className="bg-red-400 !font-pop font-bold text-xl text-center align-middle items-center text-white px-10 py-4 rounded-md shadow-xl border-1"
         onClick={() => {
           setNoCounter(prev => prev + 1)
           setNoMessages(getRandomDiscourageNoMessage())
