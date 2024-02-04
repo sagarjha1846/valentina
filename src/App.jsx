@@ -3,9 +3,9 @@ import {useEffect, useState} from "react";
 import {GifComponent} from "./Component/GifPlayer";
 
 export default function App() {
+  const API_KEY =  import.meta.env.VITE_APP_API_URL
   const [sadImage, setSadImage] = useState([])
   const [noCounter, setNoCounter] = useState(0)
-  const [query, setQuery] = useState("question")
   const [noMessages, setNoMessages] = useState("")
   const [Yes, setYes] = useState(false)
   const discourageNoMessages = [
@@ -39,15 +39,15 @@ export default function App() {
     return discourageNoMessages[Math.floor(Math.random() * discourageNoMessages.length)];
   };
 
-  const fetchData = async (limit,offset,query) => {
-    const url = `https://api.giphy.com/v1/stickers/search?api_key=5DNgDXpjT6Wki0CHdHkML3QneF0H3b7V&q=${query}&limit=${limit}&offset=${offset}&rating=g&lang=en&bundle=messaging_non_clips`
+  const fetchData = async (limit,query) => {
+    const url = `https://api.giphy.com/v1/stickers/search?api_key=${API_KEY}=${query}&limit=${limit}&offset=${Math.floor(Math.random()*100)}&rating=g&lang=en&bundle=messaging_non_clips`
     const response = await axios.get(url)
     return response.data.data
   }
 
   useEffect(() => {
     (async()=>{
-      const data = await fetchData(1,5,"question")
+      const data = await fetchData(1,"question")
       setSadImage(data)
     })()
   }, [])
@@ -55,7 +55,7 @@ export default function App() {
   useEffect(() => {
     if(noCounter>0){
       (async()=>{
-        const data = await fetchData(200,1,"sad")
+        const data = await fetchData(200,"sad")
         setSadImage(data)
       })()
     }
@@ -81,7 +81,7 @@ export default function App() {
         }}
         className="bg-green-400 px-10 !font-pop font-bold text-xl text-center align-middle items-center text-white py-4 rounded-md shadow-xl border-1"
          onClick={() => {
-          fetchData(1,1,"iLoveYou").then(res=>setSadImage(res))
+          fetchData(1,"I Love You").then(res=>setSadImage(res))
           setYes(true)
         }}
       >
@@ -92,7 +92,6 @@ export default function App() {
         className="bg-red-400 h-14 !font-pop font-bold text-xl text-center align-middle items-center text-white px-10 py-4 rounded-md shadow-xl border-1"
         onClick={() => {
           setNoCounter(prev => prev + 1)
-          setQuery("sad")
           setNoMessages(getRandomDiscourageNoMessage())
         }}
       >
