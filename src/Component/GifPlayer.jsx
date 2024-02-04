@@ -11,14 +11,11 @@ export const GifComponent = ({ gifData = null,noCounter }) => {
     let active = true;
     const fetchData = async () => {
       const imgSelection = gifData === 1 ? 0 : Math.floor(Math.random()*gifData.length)
-      console.log(gifData,gifData[imgSelection]);
       if (gifData && gifData[imgSelection]) {
         const { images, title } = gifData[imgSelection];
-        console.log(images, title);
         if (active) {
           const gifUrl = images.original.url;
 
-          console.log(gifUrl);
           // Preload the image
           const img = new Image();
           img.src = gifUrl;
