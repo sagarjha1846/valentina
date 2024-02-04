@@ -5,8 +5,6 @@ import {GifComponent} from "./Component/GifPlayer";
 export default function App() {
   const [sadImage, setSadImage] = useState([])
   const [noCounter, setNoCounter] = useState(0)
-  const [offset, setOffset] = useState(1);
-  const [limit,setLimit] = useState(1);
   const [query, setQuery] = useState("question")
   const [noMessages, setNoMessages] = useState("")
   const [Yes, setYes] = useState(false)
@@ -49,26 +47,20 @@ export default function App() {
 
   useEffect(() => {
     (async()=>{
-      const data = await fetchData(2,1,"question")
+      const data = await fetchData(1,5,"question")
       setSadImage(data)
     })()
   }, [])
 
   useEffect(() => {
-     (async()=>{
-      const data = await fetchData(limit,offset,query)
-      if(query==="sad" && sadImage.length>3){
-        setSadImage((prev)=>[...prev, ...data])
-      }
-      setSadImage(data)
-    })()
-  }, [offset, limit, query])
- 
-  // useEffect(() => {
-  //   if(noCounter+1 === sadImage.length){
-  //     setOffset(prev => prev+1);
-  //   }
-  // }, [noCounter, sadImage])
+    if(noCounter>0){
+      (async()=>{
+        const data = await fetchData(200,1,"sad")
+        setSadImage(data)
+      })()
+    }
+    
+  }, [noCounter])
  
   return (
    <div className=" font-pop w-[100vw] h-[100vh] grid place-items-center justify-center align-middle content-center self-center gap-10">
@@ -89,7 +81,7 @@ export default function App() {
         }}
         className="bg-green-400 px-10 !font-pop font-bold text-xl text-center align-middle items-center text-white py-4 rounded-md shadow-xl border-1"
          onClick={() => {
-          fetchData(2,1,"iLoveYou").then(res=>setSadImage(res))
+          fetchData(1,1,"iLoveYou").then(res=>setSadImage(res))
           setYes(true)
         }}
       >
@@ -101,7 +93,6 @@ export default function App() {
         onClick={() => {
           setNoCounter(prev => prev + 1)
           setQuery("sad")
-          setLimit(25)
           setNoMessages(getRandomDiscourageNoMessage())
         }}
       >

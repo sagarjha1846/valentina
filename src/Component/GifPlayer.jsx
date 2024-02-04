@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-export const GifComponent = ({ gifData = null, noCounter = 1, yes }) => {
+export const GifComponent = ({ gifData = null,noCounter }) => {
   const [src, setSrc] = useState(null);
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(true);
@@ -10,11 +10,15 @@ export const GifComponent = ({ gifData = null, noCounter = 1, yes }) => {
   useEffect(() => {
     let active = true;
     const fetchData = async () => {
-      if (gifData && gifData[noCounter]) {
-        const { images, title } = gifData[yes?1:noCounter+1];
+      const imgSelection = gifData === 1 ? 0 : Math.floor(Math.random()*gifData.length)
+      console.log(gifData,gifData[imgSelection]);
+      if (gifData && gifData[imgSelection]) {
+        const { images, title } = gifData[imgSelection];
+        console.log(images, title);
         if (active) {
           const gifUrl = images.original.url;
 
+          console.log(gifUrl);
           // Preload the image
           const img = new Image();
           img.src = gifUrl;
@@ -34,7 +38,7 @@ export const GifComponent = ({ gifData = null, noCounter = 1, yes }) => {
     return () => {
       active = false;
     };
-  }, [gifData, noCounter, yes]);
+  }, [gifData,noCounter]);
 
   return (
     <div>
