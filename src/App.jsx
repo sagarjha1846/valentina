@@ -63,7 +63,7 @@ export default function App() {
   }, [noCounter])
  
   return (
-   <div className=" font-pop w-[100vw] h-[100vh] grid place-items-center justify-center align-middle content-center self-center gap-10">
+   <div className=" font-pop w-[100vw] h-[100vh] flex flex-col justify-evenly align-middle content-center self-center items-center">
     {sadImage && <GifComponent yes={Yes} gifData={sadImage} noCounter={noCounter}/>}
     <div>
       <h1 className="text-3xl">
@@ -72,7 +72,7 @@ export default function App() {
     </div>
     
     {
-      Yes ? null: <div className="flex justify-between self-center align-middle content-center items-center gap-10">
+      Yes ? null: <div className="flex justify-between self-center align-middle content-center items-center gap-10 flex-wrap">
       <button
         style={{
           width: noCounter === 0 ? '120' : `${(noCounter * 10)+100}px`,
@@ -100,8 +100,7 @@ export default function App() {
       </button>
     </div>
     }
-   
-
+    
    </div>
   )
 }

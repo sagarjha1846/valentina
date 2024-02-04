@@ -38,12 +38,13 @@ export const GifComponent = ({ gifData = null,noCounter }) => {
   }, [gifData,noCounter]);
 
   return (
-    <div>
+    <>
       {loading ? (
         <p>Loading...</p>
       ) : (
         <img src={src} alt={title} className="w-[200px] h-[200px]" />
       )}
-    </div>
+
+    </>
   );
 };
